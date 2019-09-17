@@ -8,6 +8,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
@@ -61,5 +62,28 @@ public class Program {
             System.out.println("Erro: "+e.getMessage());
             
         }
+    }
+    
+    public static void executeWildcardTypes(){
+        
+        //Com tipos coringo pode-se fazer metodos que recebem generico de qualquer tipo
+        
+        List<Integer> myInts = Arrays.asList(5, 2, 10);
+        
+        List<String> myStrs = Arrays.asList("Douglas", "joao", "Maria");
+        
+        printList(myStrs);
+    }
+
+    private static void printList(List<?> myInts) {
+        
+        //Porem nao pode-se adicionar dados a uma colecao do tipo corunga, pois o compilador
+        //nao sabe qual é o tipo da lista, só pode consultar
+        //myInts.add("Roberto");
+        
+        myInts.forEach((obj) -> {
+            System.out.println(obj);
+        });
+        
     }
 }
