@@ -1,6 +1,9 @@
 package ProgramGeneric;
 
+import ProgramGeneric.Entities.Circle;
 import ProgramGeneric.Entities.Product;
+import ProgramGeneric.Entities.Rectangle;
+import ProgramGeneric.Entities.Shape;
 import ProgramGeneric.services.CalculationService;
 import java.util.Scanner;
 import ProgramGeneric.services.PrintService;
@@ -77,13 +80,75 @@ public class Program {
 
     private static void printList(List<?> myInts) {
         
-        //Porem nao pode-se adicionar dados a uma colecao do tipo corunga, pois o compilador
-        //nao sabe qual é o tipo da lista, só pode consultar
-        //myInts.add("Roberto");
+        /*Porem nao pode-se adicionar dados a uma colecao do tipo corunga, pois o compilador
+        nao sabe qual é o tipo da lista, só pode consultar
+        myInts.add("Roberto");*/
         
         myInts.forEach((obj) -> {
             System.out.println(obj);
         });
         
+    }
+    
+    public static void executeDelimitedWildcard(){
+        
+        List<Shape> myShapes = new ArrayList<>();
+        myShapes.add(new Circle(2.0));
+        myShapes.add(new Rectangle(3.0, 2.0));
+        
+        List<Circle> myCircle = new ArrayList<>();
+        myCircle.add(new Circle(3.0));
+        myCircle.add(new Circle(6.0));
+        
+       /*caso for alterado para a lista de MyCircle o compilador apresentará erro
+        pois a classe Shape não é o super tipo de Circle, nesse caso precisa utilizar o coringa
+        System.out.println("Total area: " + totalArea(myShapes));*/
+        
+       /*Como objeto a mesma situação funciona, onde shape recebe circle devido a implementação
+       mas para list não funciona mesmo circle sendo um sub tipo.
+       Circle circle = new Circle(5.0);
+       Shape shape = circle;*/
+        
+        System.out.println("Total area: " + totalArea(myShapes));
+        
+    }
+    
+    private static double totalArea(List<? extends Shape> myShapes){
+    /*Para funcionar como coringa precisa adicionar ponto de interrogacao e extender
+    pois pode ser uma lista de shape ou de qualquer sub tipo de shape*/
+    
+        double sum = 0;
+        
+        for(Shape s: myShapes){
+            sum += s.area();
+        }
+        
+        return sum;
+    }
+    
+    public static void executeDelimitedWildcardGetPut(){
+        
+        /* Metodo que copia os elementos de uma lista para outra lista que pode ser mais generica
+        que a primeira*/
+        
+        List<Integer> myInts = Arrays.asList(1,2,3,4);
+        List<Double> myDoubles = Arrays.asList(14.5, 18.0);
+        List<Object> myObj = new ArrayList<>();
+        
+        copy(myInts, myObj);
+        printList(myObj);
+        copy(myDoubles, myObj);
+        printList(myObj);
+    }
+    
+   
+    private static void copy(List<? extends Number> source, List<? super Number> destinty){
+        /* Lista generica que aceita tipo Number e os sub tipos*/
+        /* Lista generica aceitando até o super tipo de Number, no caso object*/ 
+
+        source.forEach((number) -> {
+            destinty.add(number);
+        });
+      
     }
 }
