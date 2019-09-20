@@ -1,0 +1,9 @@
+Alex Blue,15
+Maria green,22
+Bob brown,21
+Alex Blue,30
+Bob brown,15
+Maria green,27
+Maria green,22
+Bob brown,25
+Alex Blue,31

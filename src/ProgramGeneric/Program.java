@@ -15,9 +15,11 @@ import java.sql.Date;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Set;
 
 public class Program {
@@ -178,5 +180,39 @@ public class Program {
         } catch (IOException e) {
             System.out.println("Erro: " + e.getMessage());
         }
+    }
+    
+    public static void exerciceMap(){
+        
+        String path = "src\\arquivos\\in_1_1.txt";
+        
+        Map<String, Integer> votacao = new HashMap<>();
+        
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(path))) {
+
+            String line = bufferedReader.readLine();
+
+            while (line != null) {
+
+                String fields[] = line.split(",");
+                
+                if (votacao.containsKey(fields[0])){
+                    int votos = votacao.get(fields[0]) + Integer.parseInt(fields[1]) ;
+                    votacao.put(fields[0], votos);
+                }else{
+                    votacao.put(fields[0], Integer.parseInt(fields[1]));
+                
+                }
+                line = bufferedReader.readLine();
+            }
+
+            votacao.keySet().forEach((key) -> {
+                System.out.println("Candidados: " + key +" Votos: " + votacao.get(key));
+            });
+
+        } catch (IOException e) {
+            System.out.println("Erro: " + e.getMessage());
+        }
+        
     }
 }
