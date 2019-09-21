@@ -15,6 +15,8 @@ import java.sql.Date;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -181,13 +183,13 @@ public class Program {
             System.out.println("Erro: " + e.getMessage());
         }
     }
-    
-    public static void exerciceMap(){
-        
+
+    public static void exerciceMap() {
+
         String path = "src\\arquivos\\in_1_1.txt";
-        
+
         Map<String, Integer> votacao = new HashMap<>();
-        
+
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(path))) {
 
             String line = bufferedReader.readLine();
@@ -195,24 +197,58 @@ public class Program {
             while (line != null) {
 
                 String fields[] = line.split(",");
-                
-                if (votacao.containsKey(fields[0])){
-                    int votos = votacao.get(fields[0]) + Integer.parseInt(fields[1]) ;
+
+                if (votacao.containsKey(fields[0])) {
+                    int votos = votacao.get(fields[0]) + Integer.parseInt(fields[1]);
                     votacao.put(fields[0], votos);
-                }else{
+                } else {
                     votacao.put(fields[0], Integer.parseInt(fields[1]));
-                
+
                 }
                 line = bufferedReader.readLine();
             }
 
             votacao.keySet().forEach((key) -> {
-                System.out.println("Candidados: " + key +" Votos: " + votacao.get(key));
+                System.out.println("Candidados: " + key + " Votos: " + votacao.get(key));
             });
 
         } catch (IOException e) {
             System.out.println("Erro: " + e.getMessage());
         }
+
+    }
+
+    public static void ExecuteComparator() {
+
+        List<Product> list = new ArrayList<>();
+
+        list.add(new Product("Mesa", 900.00));
+        list.add(new Product("Cama", 100.00));
+        list.add(new Product("Banho", 400.00));
+
+        //para se utilizar um Collection.sort a lista precisa estar implementando a classe Comparable e sobrescrevendo o metodo compareTo
+        //Collections.sort(list);
         
+        
+        /*pode se utilizar a classe Comparador junto á uma função anonima
+        para realizar a comparaçaõ entre os atributos, ao invés de implementar no VO 
+        a classe Comparable e sobrescrever o compareTo.
+        Comparator<Product> comp = new Comparator<Product>() {
+            @Override
+            public int compare(Product p1, Product p2) {
+                return p1.getName().toUpperCase().compareTo(p2.getName().toUpperCase());
+            }
+        };
+        
+        list.sort(comp);*/
+        
+        //Comprator definido com a sintaxe de expressão lambida
+        list.sort((p1, p2) -> p1.getName().toUpperCase().compareTo(p2.getName()));
+        
+        
+        for(Product product : list){
+            System.out.println(product);
+        }
+
     }
 }
