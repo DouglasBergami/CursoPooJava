@@ -1,6 +1,7 @@
 package ProgramGeneric;
 
 import ProgramGeneric.Entities.Circle;
+import ProgramGeneric.Entities.Curso;
 import ProgramGeneric.Entities.LogEntry;
 import ProgramGeneric.Entities.Product;
 import ProgramGeneric.Entities.Rectangle;
@@ -15,8 +16,6 @@ import java.sql.Date;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -250,5 +249,33 @@ public class Program {
             System.out.println(product);
         }
 
+    }
+    
+    public static void exerciceSet2(){
+        
+       Set<Integer> totalAlunos = new HashSet<>();
+       
+       Integer[] listaAlunoCurso1 = {1,2,3,4,5,6};
+       Integer[] listaAlunoCurso2 = {1,2,3};
+       Integer[] listaAlunoCurso3 = {4,5,6};
+       
+       Curso c1 = new Curso(1, "Meio ambiente", listaAlunoCurso1, 1);
+       Curso c2 = new Curso(1, "Informática", listaAlunoCurso2, 1);
+       Curso c3 = new Curso(1, "Informática", listaAlunoCurso3, 1);
+       
+       List<Curso> listaCursos = Arrays.asList(c1,c2,c3);
+       
+       for (Curso percorreCurso : listaCursos){
+          
+            System.out.println("\nCurso: " + percorreCurso.getNome());
+            System.out.println("Total de alunos: " + percorreCurso.getIdAluno().length);
+            
+           for (Integer percorreAluno : percorreCurso.getIdAluno()){
+               
+               totalAlunos.add(percorreAluno);
+           }
+       }
+        
+        System.out.println("\nTotal de alunos do professor Douglas: " + totalAlunos.size());
     }
 }

@@ -4,7 +4,7 @@ public class Application {
    
     public static void main(String[] args) {
         
-        ProgramGeneric.Program.ExecuteComparator();
+        ProgramGeneric.Program.exerciceSet2();
      
     }
     
