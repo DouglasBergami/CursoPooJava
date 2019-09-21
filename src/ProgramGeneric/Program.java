@@ -12,6 +12,7 @@ import ProgramGeneric.services.PrintService;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.sql.Array;
 import java.sql.Date;
 import java.time.Instant;
 import java.util.ArrayList;
@@ -277,5 +278,30 @@ public class Program {
        }
         
         System.out.println("\nTotal de alunos do professor Douglas: " + totalAlunos.size());
+    }
+    
+    public static void executePredicate(){
+        
+        List<Product> listProduct = new ArrayList<>();
+        
+        listProduct.add(new Product("TV", 900.00));
+        listProduct.add(new Product("Balanca", 50.00));
+        listProduct.add(new Product("Geladeira", 350.50));
+        listProduct.add(new Product("Fogao", 80.90));
+        
+        
+        /*Há 5 formas para se utilizar o predicate :
+        1 - implementação da interface
+        2 - reference method com metodo estático
+        3 - reference method com metodo nao estático
+        4 - expressão lambda decladara
+        5 - expressão lambda inline ( mais simples e utiliza no exemplo abaixo 
+        ara remover valores maiores que 100)
+        */
+        
+        listProduct.removeIf(p -> p.getPrice() >= 100);
+        
+        System.out.println(listProduct);
+        
     }
 }
