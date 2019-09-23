@@ -9,6 +9,7 @@ import ProgramGeneric.Entities.Shape;
 import ProgramGeneric.services.CalculationService;
 import java.util.Scanner;
 import ProgramGeneric.services.PrintService;
+import ProgramGeneric.services.ProductService;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -315,5 +316,23 @@ public class Program {
         */
         System.out.println(listProduct);
         listString.forEach(System.out::println);
+    }
+    
+    public static void executeFunction(){
+        
+        List<Product> listProduct = new ArrayList<>();
+        
+        listProduct.add(new Product("TV", 900.00));
+        listProduct.add(new Product("Balanca", 50.00));
+        listProduct.add(new Product("Geladeira", 350.50));
+        listProduct.add(new Product("Fogao", 80.90));
+        
+        ProductService ps = new ProductService();
+        
+        //Passando apenas a function direto com expressao lambda do tipo inline
+        double sum = ps.filteredSum(listProduct, p -> p.getName().charAt(0) == 'T');
+        
+        System.out.println(sum);
+        
     }
 }
