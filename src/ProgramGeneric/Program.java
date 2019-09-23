@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class Program {
 
@@ -299,9 +300,20 @@ public class Program {
         ara remover valores maiores que 100)
         */
         
+        //utiliza expressao lambda para o tipo predicate
         listProduct.removeIf(p -> p.getPrice() >= 100);
         
-        System.out.println(listProduct);
+        //utiliza expressao lambda para o tipo consumer
+        listProduct.forEach(p -> {p.setPrice(p.getPrice()*1.1);});
         
+        //utiliza expressao lambda para o tipo Function
+        List<String> listString = listProduct.stream().map(p -> p.getName().toUpperCase()).collect(Collectors.toList());
+        
+        /*Conversoes
+        * List para stream: .stream()
+        * Stream para list: collect(Collectors.toList()
+        */
+        System.out.println(listProduct);
+        listString.forEach(System.out::println);
     }
 }
