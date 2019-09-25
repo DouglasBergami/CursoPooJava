@@ -2,6 +2,7 @@ package ProgramGeneric;
 
 import ProgramGeneric.Entities.Circle;
 import ProgramGeneric.Entities.Curso;
+import ProgramGeneric.Entities.Funcionarios;
 import ProgramGeneric.Entities.LogEntry;
 import ProgramGeneric.Entities.Product;
 import ProgramGeneric.Entities.Rectangle;
@@ -18,6 +19,7 @@ import java.sql.Date;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -158,7 +160,7 @@ public class Program {
 
     }
 
-    public static void exerciceSet() {
+    public static void exerciseSet() {
 
         String path = "src\\arquivos\\in_1.txt";
 
@@ -187,7 +189,7 @@ public class Program {
         }
     }
 
-    public static void exerciceMap() {
+    public static void exerciseMap() {
 
         String path = "src\\arquivos\\in_1_1.txt";
 
@@ -255,7 +257,7 @@ public class Program {
 
     }
     
-    public static void exerciceSet2(){
+    public static void exerciseSet2(){
         
        Set<Integer> totalAlunos = new HashSet<>();
        
@@ -372,4 +374,82 @@ public class Program {
                  .collect(Collectors.toList());
          System.out.println(Arrays.toString(newList.toArray()));
     }
+    
+    public static void exerciseStream(){
+        
+        String path = "src\\arquivos\\in_2.txt";
+        
+        try(BufferedReader bf = new BufferedReader(new FileReader(path))){
+            
+        List<Product> list = new ArrayList<>();
+        
+        String line = bf.readLine();
+        
+        while(line != null){
+            String[] fields = line.split(",");
+            list.add(new Product(fields[0], Double.parseDouble(fields[1])));
+            line = bf.readLine();
+        }
+        
+        double avg = list.stream()
+                .map(p -> p.getPrice())
+                .reduce(0.0, (x,y) -> x + y) / list.size();
+        
+            System.out.println("Avarege price: " + String.format("%.2f", avg));
+            
+            Comparator<String> comp = (s1,s2) -> s1.toUpperCase().compareTo(s2.toUpperCase());
+            
+            List<String> names = list.stream()
+                    .filter(p -> p.getPrice() < avg)
+                    .map(p -> p.getName())
+                    .sorted(comp.reversed())
+                    .collect(Collectors.toList());
+            
+            names.forEach(System.out::println);
+            
+        }catch(IOException e){
+            System.out.println("Erro: " + e.getMessage());
+        }
+    }
+    
+    public static void exerciseStream2() {
+        String path = "src\\arquivos\\in_1_1_1.txt";
+        
+        System.out.println("Digite o valor do salario!");
+        Scanner sc = new Scanner(System.in);
+        
+        double valor = sc.nextDouble();
+
+        try (BufferedReader bf = new BufferedReader(new FileReader(path))) {
+
+            List<Funcionarios> list = new ArrayList<>();
+
+            String line = bf.readLine();
+
+            while (line != null) {
+                String[] fields = line.split(",");
+                list.add(new Funcionarios(fields[0], fields[1], Double.parseDouble(fields[2])));
+                line = bf.readLine();
+            }
+
+            List<String> names = list.stream()
+                    .filter(p -> p.getSalario() > valor)
+                    .map(p -> p.getEmail())
+                    .sorted((s1,s2) -> s1.toUpperCase().compareTo(s2.toUpperCase()))
+                    .collect(Collectors.toList());
+
+            names.forEach(System.out::println);
+            
+            double sum = list.stream()
+                    .filter(p -> p.getNome().toUpperCase().charAt(0) == 'M')
+                    .map(p -> p.getSalario())
+                    .reduce(0.0, (x,y) -> x + y);
+            
+            System.out.println("\nTotal dos salarios dos funcionarios com a letra M: " + sum);
+            
+        } catch (IOException e) {
+            System.out.println("Erro: " + e.getMessage());
+        }
+    }
+
 }
