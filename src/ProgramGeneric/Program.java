@@ -451,5 +451,52 @@ public class Program {
             System.out.println("Erro: " + e.getMessage());
         }
     }
+    
+    public static void executeList(){
+        
+         List<String> listaTeste = new ArrayList<>();
+        
+        listaTeste.add("douglas");
+        listaTeste.add("drogaria");
+        listaTeste.add("maria");
+        listaTeste.add("fernando");
+        listaTeste.add("jose");
+        
+        
+        /*Utilizando predicate booleano para remover os nomes com a o caracter m*/
+        listaTeste.removeIf(x -> x.charAt(0) == 'm');
+        
+        for(String obj : listaTeste){
+            System.out.println(obj);
+        }
+        
+        System.out.println("----------------------------------------");
+        
+        List<String> resultado = listaTeste;
+        
+        for(String obj : resultado){
+            System.out.println(obj);
+        }
+        
+        System.out.println("----------------------------------------");
+        
+        /*Utilizando predicate de filtro para localizar todos os nomes com 
+        o caracter d*/
+        List<String> resultado2 = resultado.stream().filter(x -> x.charAt(0) == 'd').collect(Collectors.toList());
+        
+        for(String obj : resultado2){
+            System.out.println(obj);
+        }
+        
+        System.out.println("----------------------------------------");
+        
+        
+          /*Utilizando predicate de filtro para localizar o primeiro nome com 
+        o caracter d*/
+        String primeiro = resultado2.stream().filter(x -> x.charAt(0) == 'd').findFirst().orElse(null);
+       
+        System.out.println(primeiro);
+        
+    }
 
 }

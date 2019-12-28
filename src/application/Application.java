@@ -1,11 +1,11 @@
 package application;
 
 public class Application {
-   
+
     public static void main(String[] args) {
         
-        ProgramGeneric.Program.exerciseStream2();
-     
-    }
+        ProgramGeneric.Program.executeList();
+       
+}
     
 }
