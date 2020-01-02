@@ -14,18 +14,21 @@ import ProgramGeneric.services.ProductService;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.sql.Array;
-import java.sql.Date;
+import java.text.ParseException;
+//import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
+import java.util.TimeZone;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -614,6 +617,50 @@ public class Program {
 
         System.out.println("Main Diagonal: " + mainDiagonal.toString());
         System.out.println("negative numbers: " + negativeNumbers.size());
+    }
+    
+    public static void executeDateFormat1() throws ParseException {
+
+        /**
+         * Padrão ISO 8601 e classe Instant Formato: yyyy-MM-ddTHH:mm:ssZ
+         * Exemplo: "2018-06-25T15:42:07Z" Date y3 =
+         * Date.from(Instant.parse("2018-06-25T15:42:07Z"));
+         */
+        SimpleDateFormat sdf1 = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat sdf2 = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        SimpleDateFormat sdf3 = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        sdf3.setTimeZone(TimeZone.getTimeZone("GMT"));
+        Date x1 = new Date(System.currentTimeMillis());
+        Date x2 = new Date(System.currentTimeMillis());
+        Date x3 = new Date(0L);
+        Date x4 = new Date(1000L * 60L * 60L * 5L);
+        Date y1 = sdf1.parse("25/06/2018");
+        Date y2 = sdf2.parse("25/06/2018 15:42:07");
+        Date y3 = Date.from(Instant.parse("2018-06-25T15:42:07Z"));
+        System.out.println("x1: " + x1);
+        System.out.println("x2: " + x2);
+        System.out.println("x3: " + x3);
+        System.out.println("x4: " + x4);
+        System.out.println("y1: " + y1);
+        System.out.println("y2: " + y2);
+        System.out.println("y3: " + y3);
+        System.out.println("-------------");
+        System.out.println("x1: " + sdf2.format(x1));
+        System.out.println("x2: " + sdf2.format(x2));
+        System.out.println("x3: " + sdf2.format(x3));
+        System.out.println("x4: " + sdf2.format(x4));
+        System.out.println("y1: " + sdf2.format(y1));
+        System.out.println("y2: " + sdf2.format(y2));
+        System.out.println("y3: " + sdf2.format(y3));
+        System.out.println("-------------");
+        System.out.println("x1: " + sdf3.format(x1));
+        System.out.println("x2: " + sdf3.format(x2));
+        System.out.println("x3: " + sdf3.format(x3));
+        System.out.println("x4: " + sdf3.format(x4));
+        System.out.println("y1: " + sdf3.format(y1));
+        System.out.println("y2: " + sdf3.format(y2));
+        System.out.println("y3: " + sdf3.format(y3));
+        
     }
 
 }
