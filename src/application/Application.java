@@ -1,12 +1,10 @@
 package application;
 
-import java.text.ParseException;
-
 public class Application {
 
-    public static void main(String[] args) throws ParseException {
+    public static void main(String[] args){
         
-        ProgramGeneric.Program.executeDateFormat1();
+        ProgramGeneric.Program.executeDateFormat2();
        
     }
 
