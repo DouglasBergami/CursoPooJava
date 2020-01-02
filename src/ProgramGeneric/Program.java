@@ -570,5 +570,50 @@ public class Program {
             }
         }
     }
+    
+    public static void executeExerciseMatriz2(){
+        /**
+        * Fazer um programa para ler um número inteiro N e uma matriz de
+        ordem N contendo números inteiros. Em seguida, mostrar a diagonal
+        principal e a quantidade de valores negativos da matriz.
+        * 
+        * input:
+        * 3
+        5 -3 10
+        15 8 2
+        7 9 -4
+        * output:
+        * Main diagonal:
+        5 8 -4
+        Negative numbers = 2
+         */
+        int[][] matriz;
+        List<Integer> negativeNumbers = new ArrayList<>();
+        List<Integer> mainDiagonal = new ArrayList<>();
+
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Digite a quantidade da matriz");
+
+        int qtdMatriz = scanner.nextInt();
+
+        matriz = new int[qtdMatriz][qtdMatriz];
+
+        for (int i = 0; i < matriz.length; i++) {
+            for (int j = 0; j < matriz[i].length; j++) {
+                int valorDigitado = scanner.nextInt();
+                if (valorDigitado < 0) {
+                    negativeNumbers.add(valorDigitado);
+                }
+                if (i == j) {
+                    mainDiagonal.add(valorDigitado);
+                }
+                matriz[i][j] = valorDigitado;
+            }
+        }
+
+        System.out.println("Main Diagonal: " + mainDiagonal.toString());
+        System.out.println("negative numbers: " + negativeNumbers.size());
+    }
 
 }
