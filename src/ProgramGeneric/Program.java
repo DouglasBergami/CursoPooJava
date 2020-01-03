@@ -2,11 +2,15 @@ package ProgramGeneric;
 
 import ProgramGeneric.Entities.Circle;
 import ProgramGeneric.Entities.Curso;
+import ProgramGeneric.Entities.Departament;
 import ProgramGeneric.Entities.Funcionarios;
+import ProgramGeneric.Entities.HourContract;
 import ProgramGeneric.Entities.LogEntry;
 import ProgramGeneric.Entities.Product;
 import ProgramGeneric.Entities.Rectangle;
 import ProgramGeneric.Entities.Shape;
+import ProgramGeneric.Entities.Worker;
+import ProgramGeneric.Enums.WorkerLevel;
 import ProgramGeneric.services.CalculationService;
 import java.util.Scanner;
 import ProgramGeneric.services.PrintService;
@@ -15,7 +19,6 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.text.ParseException;
-//import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.ArrayList;
@@ -687,5 +690,59 @@ public class Program {
         System.out.println("Month: " + month);
         
     }
+    
+    public static void executeExerciseComposition() throws ParseException {
 
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Enter department's name: ");
+        Departament departament = new Departament(sc.nextLine());
+
+        System.out.println("Enter worker data: ");
+        System.out.printf("Name: ");
+        String name = sc.nextLine();
+        System.out.printf("Level: ");
+        String workerLevel = sc.nextLine();
+        System.out.println("Base Salary: ");
+        double baseSalary = sc.nextDouble();
+        System.out.printf("How many contracts to this worker? ");
+        int contracts = sc.nextInt();
+
+        Worker worker = new Worker(name, WorkerLevel.valueOf(workerLevel), baseSalary, departament);
+
+        for (int i = 0; i < contracts; i++) {
+
+            StringBuilder builder = new StringBuilder();
+            builder.append("Enter contract #");
+            builder.append(i + 1);
+            builder.append(" data:");
+
+            System.out.println(builder.toString());
+            sc.nextLine();
+            System.out.printf("Date (DD/MM/YYYY): ");
+            String date = sc.nextLine();
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            Date dateFormat = sdf.parse(date);
+            System.out.printf("Value per hour: ");
+            Double valuePerHour = sc.nextDouble();
+            System.out.printf("Duration: ");
+            int duration = sc.nextInt();
+
+            HourContract hourContract = new HourContract(dateFormat, valuePerHour, duration);
+
+            worker.addContract(hourContract);
+        }
+
+        sc.nextLine();
+        System.out.printf("Enter month and year to calculate income (MM/YYYY) : ");
+        String income = sc.nextLine();
+
+        String[] incomeSplit = income.split("/");
+        int month = Integer.parseInt(incomeSplit[0]);
+        int year = Integer.parseInt(incomeSplit[1]);
+
+        System.out.println(worker.toString());
+        System.out.println("Income for " + income + ": " + worker.income(month, year));
+
+    }
 }
